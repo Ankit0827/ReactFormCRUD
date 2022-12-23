@@ -1,0 +1,46 @@
+{
+  "Users": [
+    {
+      "id": 1,
+      "name": "Leanne Graham",
+      "email": "Sincere@april.biz",
+      "password": 37845985525
+    },
+    {
+      "name": "Ankit Verma",
+      "email": "ankitmmb2016@gmail.com",
+      "password": "anks@1234",
+      "id": 2
+    },
+    {
+      "name": "Mohd Umar",
+      "email": "umarmohdumar86@gmail.com",
+      "password": "86@Umarmohdumar * #",
+      "id": 5
+    },
+    {
+      "name": "Sadiq ",
+      "email": "sadiqisthe@gmail.com",
+      "password": "Secondthursday12",
+      "id": 6
+    },
+    {
+      "name": "Aniket kumar Pandey",
+      "email": "aniketkumarpandey5@gmail.com",
+      "password": "aniket34",
+      "id": 7
+    },
+    {
+      "name": "Bigul Gupta",
+      "email": "guptabigul786@gmail.com",
+      "password": "kjhfksdhfigudsig",
+      "id": 8
+    },
+    {
+      "name": "Kunal Kumar Gupta",
+      "email": "kunalg02092001@gmail.com",
+      "password": "ushfsjdgsdg",
+      "id": 9
+    }
+  ]
+}
