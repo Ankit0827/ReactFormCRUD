@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+import '../CSS/adduser.css'
+import Login from './Pages/Login/Login'
 
-const Login = () => {
+const AddUser = () => {
     const [showTable, setShowTable] = useState(false);
     const [passwordType, setPasswordType] = useState(false);
     const [tableData, setTableData] = useState([]);
@@ -27,7 +29,7 @@ const Login = () => {
     const postUser = () => {
         formData.name.length ? setErrorName(false) : setErrorName(true);
         formData.email.length ? setErrorEmail(false) : setErrorEmail(true);
-        formData.name.length ? setErrorPassword(false) : setErrorPassword(true);
+        formData.password.length ? setErrorPassword(false) : setErrorPassword(true);
         let arr = Object.values(formData);
         if (!!arr[0]) {
             axios.post(`http://localhost:3000/Users`, formData).then((res) => {
@@ -110,6 +112,7 @@ const Login = () => {
             .patch(`http://localhost:3000/Users/${editUserId}`, formData)
             .then((res) => {
                 getUser();
+                setEditUserClicked(!editUserClick);
                 setShowTable(!showTable);
             });
     };
@@ -118,6 +121,11 @@ const Login = () => {
         setFormData({});
         setShowTable(!showTable);
         if (editUserClick) setEditUserClicked(!editUserClick);
+    }
+
+    const Table=()=>{
+        getUser();
+        setShowTable(true);
     }
 
     const showForm = () => {
@@ -184,6 +192,14 @@ const Login = () => {
                         {!editUserClick ? (
                             <div className="btn-div">
                                 <button onClick={() => postUser()}>Add User</button>
+                                <span
+                                    style={{
+                                        fontWeight: "700",
+                                        color: "white",
+                                        padding: "5px",
+                                    }}
+                                >or</span>
+                                <button onClick={() => Table()}>Show Table</button>
                             </div>
                         ) : (
                             <div className="btn-div">
@@ -270,11 +286,21 @@ const Login = () => {
                             </button>
                         </div>
                     </div>
+                   
                 </div>
             );
         }
     };
-    return <>{showForm()}</>;
+    return (
+        <>
+        
+        {
+           showForm()   
+        }
+        <Login data={AddUser}/>
+      
+        </>
+        );
 };
 
-export default Login;
+export default AddUser;
