@@ -1,12 +1,6 @@
 {
   "Users": [
     {
-      "id": 1,
-      "name": "Leanne Graham",
-      "email": "Sincere@april.biz",
-      "password": 37845985525
-    },
-    {
       "name": "Ankit Verma",
       "email": "ankitmmb2016@gmail.com",
       "password": "anks@1234",
@@ -19,7 +13,7 @@
       "id": 5
     },
     {
-      "name": "Sadiq ",
+      "name": "Sadiq",
       "email": "sadiqisthe@gmail.com",
       "password": "Secondthursday12",
       "id": 6
@@ -43,9 +37,9 @@
       "id": 9
     },
     {
-      "name": "hyfytfhtv",
-      "email": "ccfdtgdhtdht",
-      "password": "76567445678765",
+      "name": "ankit",
+      "email": "a@gmail.com",
+      "password": "12345",
       "id": 10
     }
   ]

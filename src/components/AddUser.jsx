@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import '../CSS/adduser.css'
 import Login from './Pages/Login/Login'
+import { Link } from "react-router-dom";
 
 const AddUser = () => {
     const [showTable, setShowTable] = useState(false);
@@ -127,6 +128,7 @@ const AddUser = () => {
         getUser();
         setShowTable(true);
     }
+   
 
     const showForm = () => {
         if (!showTable) {
@@ -190,6 +192,7 @@ const AddUser = () => {
                             </span>
                         </form>
                         {!editUserClick ? (
+                            <>
                             <div className="btn-div">
                                 <button onClick={() => postUser()}>Add User</button>
                                 <span
@@ -200,7 +203,16 @@ const AddUser = () => {
                                     }}
                                 >or</span>
                                 <button onClick={() => Table()}>Show Table</button>
+                               
                             </div>
+                            
+                                 <div className="route_div">
+                                      <span>Allready have an account</span>
+                                      <Link to="/">Login</Link>    
+                                </div>
+                              
+                        </>
+                            
                         ) : (
                             <div className="btn-div">
                                 <button onClick={() => editUserApi()}>Edit User</button>
@@ -292,13 +304,10 @@ const AddUser = () => {
         }
     };
     return (
-        <>
-        
+        <>  
         {
            showForm()   
         }
-        <Login data={AddUser}/>
-      
         </>
         );
 };

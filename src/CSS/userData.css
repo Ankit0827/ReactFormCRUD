@@ -1,0 +1,16 @@
+.parent_userdata_div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+th,tr,td{
+    border: 1px solid black;  
+}
+th{
+    background-color:black;
+    color: white;
+}
+tr{
+    font-weight: 500;
+}

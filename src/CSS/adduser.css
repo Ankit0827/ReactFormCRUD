@@ -108,3 +108,15 @@ table th,td{
     background-color: #ddd;
     cursor: pointer;
 }
+
+.route_div{
+    text-align: center;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+Link{
+    text-decoration: none;
+    border: none;
+    margin-left: 1rem;
+}
