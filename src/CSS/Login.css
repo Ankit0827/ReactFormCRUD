@@ -6,6 +6,9 @@
     justify-content: center;
     padding-top: 7rem;
 }
+.hide-parent-div{
+    display: none;
+}
 .login_subparent_div{
     padding: 4rem;
     margin: 1rem;
@@ -55,3 +58,44 @@
     cursor: pointer;
 
 }
+
+/* loader css */
+.show-parent-loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.9);
+    z-index: 2;
+    cursor: pointer;
+}
+.hide-parent-loader{
+    display: none;
+}
+.loader {
+    border: 12px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 12px solid #4CA1AF;
+    border-right: 12px solid #4CA1AF;
+    border-bottom: 12px solid #4CA1AF;
+    width: 100px;
+    height: 100px;
+    -webkit-animation: spin 2.5s linear infinite;
+    animation: spin 2.5s linear infinite;
+  }
+  
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

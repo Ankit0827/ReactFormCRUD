@@ -3,6 +3,7 @@ import './App.css';
 import AddUser from './components/AddUser';
 import Login from './components/Pages/Login/Login'
 import Userdata from './components/Pages/UserData/Userdata';
+import 'react-toastify/dist/ReactToastify.css'; 
 function App() {
   return (
     <div className="App">

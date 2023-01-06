@@ -17,11 +17,18 @@ const Login = () => {
     const [emailerror, setEmailerror] = useState(false)
     const [passworderror, setPassworderror] = useState(false);
     const [userMatchedData, setUserMatchedData] = useState({});
+    const [showLoader,setShowLoader] = useState(false);
+    const [showlogin,setLogin]=useState(true);
 
 
-
+    
     const login = () => {
-        fetchUsers();
+        setShowLoader(!showLoader);
+        setLogin(!showlogin);
+        setTimeout(()=>{
+            fetchUsers();
+        },4000)
+        
     }
     const fetchUsers = () => {
         axios.get(`http://localhost:3000/Users`).then((res) => {
@@ -32,6 +39,7 @@ const Login = () => {
                 if (data.email === emailCheck && data.password === passwordCheck) {
                     setRegisteredUser(!registeredUser)
                     setUserMatchedData(data);
+                    setShowLoader(false)
                 }
                 else {
                     setNotFound(!notFound)
@@ -79,11 +87,19 @@ const Login = () => {
         }
     };
 
+    const getLoaderClass = () =>{
+        return showLoader ? 'show-parent-loader' : 'hide-parent-loader';
+    }
+
+    const getLoginClass=()=>{
+        return showlogin?'login_parent_div':'hide-parent-div'
+    }
+
     const showtoaster = () => {
         {
             if (showLoginForm) {
                 return (
-                    <div className='login_parent_div'>
+                    <div className={getLoginClass()}>
                         <div className="login_subparent_div">
                             <div className="login_heading_div">
                                 <h1 className="login_heading">Login</h1>
@@ -147,6 +163,9 @@ const Login = () => {
             {
                 showtoaster()
             }
+            <div className= {getLoaderClass()}>
+            <div className="loader"></div>
+            </div>
         </>
 
     )

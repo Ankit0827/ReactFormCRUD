@@ -3,6 +3,8 @@ import axios from "axios";
 import '../CSS/adduser.css'
 import Login from './Pages/Login/Login'
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const AddUser = () => {
     const [showTable, setShowTable] = useState(false);
@@ -104,6 +106,7 @@ const AddUser = () => {
 
     const deleteUser = (index) => {
         axios.delete(`http://localhost:3000/Users/${tableData[index].id}`).then((res) => {
+            toast.success("User deleted Successfully", { position: toast.POSITION.TOP_RIGHT })
             getUser();
         })
     };
@@ -124,11 +127,11 @@ const AddUser = () => {
         if (editUserClick) setEditUserClicked(!editUserClick);
     }
 
-    const Table=()=>{
+    const Table = () => {
         getUser();
         setShowTable(true);
     }
-   
+
 
     const showForm = () => {
         if (!showTable) {
@@ -193,26 +196,26 @@ const AddUser = () => {
                         </form>
                         {!editUserClick ? (
                             <>
-                            <div className="btn-div">
-                                <button onClick={() => postUser()}>Add User</button>
-                                <span
-                                    style={{
-                                        fontWeight: "700",
-                                        color: "white",
-                                        padding: "5px",
-                                    }}
-                                >or</span>
-                                <button onClick={() => Table()}>Show Table</button>
-                               
-                            </div>
-                            
-                                 <div className="route_div">
-                                      <span>Allready have an account</span>
-                                      <Link to="/">Login</Link>    
+                                <div className="btn-div">
+                                    <button onClick={() => postUser()}>Add User</button>
+                                    <span
+                                        style={{
+                                            fontWeight: "700",
+                                            color: "white",
+                                            padding: "5px",
+                                        }}
+                                    >or</span>
+                                    <button onClick={() => Table()}>Show Table</button>
+
                                 </div>
-                              
-                        </>
-                            
+
+                                <div className="route_div">
+                                    <span>Allready have an account</span>
+                                    <Link to="/">Login</Link>
+                                </div>
+
+                            </>
+
                         ) : (
                             <div className="btn-div">
                                 <button onClick={() => editUserApi()}>Edit User</button>
@@ -298,18 +301,19 @@ const AddUser = () => {
                             </button>
                         </div>
                     </div>
-                   
+
                 </div>
             );
         }
     };
     return (
-        <>  
-        {
-           showForm()   
-        }
+        <>
+            {
+                showForm()
+            }
+            <ToastContainer />
         </>
-        );
+    );
 };
 
 export default AddUser;
