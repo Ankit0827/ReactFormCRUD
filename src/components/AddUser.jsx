@@ -35,7 +35,7 @@ const AddUser = () => {
         let arr = Object.values(formData);
         alert(arr);
         if (!!arr[0]) {
-            axios.post(`http://localhost:3000/Users`,formData).then((res) => {
+            axios.post(`https://ac9d-2405-201-5c13-812e-e5a6-e37f-ee4e-b92.ngrok.io/Users`,formData).then((res) => {
                 if (res) {
                     setShowTable(!showTable);
                     setFormData({});
@@ -46,7 +46,7 @@ const AddUser = () => {
     };
 
     const getUser = () => {
-        axios.get(`http://localhost:3000/Users`).then((res) => {
+        axios.get(`https://ac9d-2405-201-5c13-812e-e5a6-e37f-ee4e-b92.ngrok.io/Users`).then((res) => {
             let user = res.data;
             setTableData(user);
         });
@@ -109,7 +109,7 @@ const AddUser = () => {
     };
 
     const deleteUser = (index) => {
-        axios.delete(`http://localhost:3000/Users/${tableData[index].id}`).then((res) => {
+        axios.delete(`https://ac9d-2405-201-5c13-812e-e5a6-e37f-ee4e-b92.ngrok.io/Users${tableData[index].id}`).then((res) => {
             toast.success("User deleted Successfully", { position: toast.POSITION.TOP_RIGHT })
             getUser();
         })
@@ -117,7 +117,7 @@ const AddUser = () => {
 
     const editUserApi = () => {
         axios
-            .put(`http://localhost:3000/Users/${editUserId}`, formData)
+            .put(`https://ac9d-2405-201-5c13-812e-e5a6-e37f-ee4e-b92.ngrok.io/Users${editUserId}`, formData)
             .then((res) => {
                 getUser();
                 setEditUserClicked(!editUserClick);
