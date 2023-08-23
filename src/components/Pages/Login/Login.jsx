@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React from 'react'
-import '../../../CSS/login.css'
+// import '../../../CSS/login.css'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Userdata from '../UserData/Userdata'
