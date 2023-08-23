@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import '../CSS/adduser.css'
-import Login from './Pages/Login/Login'
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -30,12 +29,13 @@ const AddUser = () => {
     };
 
     const postUser = () => {
-        formData.name.length ? setErrorName(false) : setErrorName(true);
-        formData.email.length ? setErrorEmail(false) : setErrorEmail(true);
-        formData.password.length ? setErrorPassword(false) : setErrorPassword(true);
+        formData.name?.length ? setErrorName(false) : setErrorName(true);
+        formData.email?.length ? setErrorEmail(false) : setErrorEmail(true);
+        formData.password?.length ? setErrorPassword(false) : setErrorPassword(true);
         let arr = Object.values(formData);
+        alert(arr);
         if (!!arr[0]) {
-            axios.post(`http://localhost:3000/Users`, formData).then((res) => {
+            axios.post(`http://localhost:3000/Users`,formData).then((res) => {
                 if (res) {
                     setShowTable(!showTable);
                     setFormData({});
@@ -46,9 +46,9 @@ const AddUser = () => {
     };
 
     const getUser = () => {
-        axios.get(`http://localhost:3000/Users`).then((res) => {
+        axios.get(`https://ec15-2405-201-5c13-812e-247f-3561-92f2-c52b.ngrok-free.app/api/Value`).then((res) => {
             let user = res.data;
-            setTableData([...user]);
+            setTableData(user);
         });
     };
 
@@ -72,7 +72,11 @@ const AddUser = () => {
 
             case "passwordError":
                 !!formData.password ? setErrorPassword(false) : setErrorPassword(true);
+                break;
+                default:
         }
+
+        
     };
     const setEmail = (e) => {
         if (e.target.value.length) {
@@ -113,7 +117,7 @@ const AddUser = () => {
 
     const editUserApi = () => {
         axios
-            .patch(`http://localhost:3000/Users/${editUserId}`, formData)
+            .put(`http://localhost:3000/Users/${editUserId}`, formData)
             .then((res) => {
                 getUser();
                 setEditUserClicked(!editUserClick);
@@ -122,6 +126,11 @@ const AddUser = () => {
     };
 
     const goBack = () => {
+        // setFormData({
+        //     name:"",
+        //     email:"",
+        //     password:""
+        // })
         setFormData({});
         setShowTable(!showTable);
         if (editUserClick) setEditUserClicked(!editUserClick);

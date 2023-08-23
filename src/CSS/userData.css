@@ -14,3 +14,15 @@ th{
 tr{
     font-weight: 500;
 }
+
+.profile_div{
+    display: flex;
+}
+.profile_header_div1{
+    display: flex;
+    border: 1px solid black;
+}
+.user_profileData_div{
+    display: flex;
+    border: 1px solid black;
+}
