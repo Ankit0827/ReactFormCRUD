@@ -46,7 +46,7 @@ const AddUser = () => {
     };
 
     const getUser = () => {
-        axios.get(`https://ec15-2405-201-5c13-812e-247f-3561-92f2-c52b.ngrok-free.app/api/Value`).then((res) => {
+        axios.get(`http://localhost:3000/Users`).then((res) => {
             let user = res.data;
             setTableData(user);
         });
