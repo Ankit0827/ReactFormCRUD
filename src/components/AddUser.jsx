@@ -35,7 +35,7 @@ const AddUser = () => {
         let arr = Object.values(formData);
         alert(arr);
         if (!!arr[0]) {
-            axios.post(`https://ac9d-2405-201-5c13-812e-e5a6-e37f-ee4e-b92.ngrok.io/Users`,formData).then((res) => {
+            axios.post(`https://ac9d-2405-201-5c13-812e-e5a6-e37f-ee4e-b92.ngrok.io/Users`, formData).then((res) => {
                 if (res) {
                     setShowTable(!showTable);
                     setFormData({});
@@ -46,7 +46,7 @@ const AddUser = () => {
     };
 
     const getUser = () => {
-        axios.get(`https://ac9d-2405-201-5c13-812e-e5a6-e37f-ee4e-b92.ngrok.io/Users`).then((res) => {
+        axios.get(`https://2fca-2405-201-5c13-812e-6887-ecf5-8b3d-29ea.ngrok-free.app/api/Value`).then((res) => {
             let user = res.data;
             setTableData(user);
         });
@@ -73,10 +73,10 @@ const AddUser = () => {
             case "passwordError":
                 !!formData.password ? setErrorPassword(false) : setErrorPassword(true);
                 break;
-                default:
+            default:
         }
 
-        
+
     };
     const setEmail = (e) => {
         if (e.target.value.length) {
@@ -109,7 +109,7 @@ const AddUser = () => {
     };
 
     const deleteUser = (index) => {
-        axios.delete(`https://ac9d-2405-201-5c13-812e-e5a6-e37f-ee4e-b92.ngrok.io/Users${tableData[index].id}`).then((res) => {
+        axios.delete(`https://ac9d-2405-201-5c13-812e-e5a6-e37f-ee4e-b92.ngrok.io/Users/${tableData[index].id}`).then((res) => {
             toast.success("User deleted Successfully", { position: toast.POSITION.TOP_RIGHT })
             getUser();
         })
@@ -117,7 +117,7 @@ const AddUser = () => {
 
     const editUserApi = () => {
         axios
-            .put(`https://ac9d-2405-201-5c13-812e-e5a6-e37f-ee4e-b92.ngrok.io/Users${editUserId}`, formData)
+            .put(`https://ac9d-2405-201-5c13-812e-e5a6-e37f-ee4e-b92.ngrok.io/Users/${editUserId}`, formData)
             .then((res) => {
                 getUser();
                 setEditUserClicked(!editUserClick);
@@ -250,10 +250,12 @@ const AddUser = () => {
                             <tbody>
                                 {tableData.map((val, index) => (
                                     <tr key={index}>
-                                        <td>{val.id}</td>
-                                        <td>{val.name}</td>
-                                        <td>{val.email}</td>
-                                        <td>{val.password}</td>
+                                        <td>{val.StudentId}</td>
+                                        <td>{val.StudentName}</td>
+                                        <td>{val.StudentPhoneNumber}</td>
+                                        <td>{val.StudentEmail}</td>
+                                        <td>{val.RollNo}</td>
+
                                         <div
                                             className="btn_edit_delete"
                                             style={{
