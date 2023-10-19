@@ -1,6 +1,5 @@
 import React from 'react'
 import '../../../CSS/userData.css'
-import Fileupload from '../../fileupload/Fileupload'
 
 const Userdata = (props) => {
   console.log(props.data)
@@ -29,7 +28,6 @@ const Userdata = (props) => {
       <div className="profile_div">
            <div className="profile_header_div1">gg</div>
            <div className="user_profileData_div">mehdguygf</div>
-           <Fileupload/>
       </div>
     </div>
 

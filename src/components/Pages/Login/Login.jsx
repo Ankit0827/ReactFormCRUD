@@ -1,174 +1,133 @@
-import axios from 'axios'
-import React from 'react'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import Userdata from '../UserData/Userdata'
-
-
+import axios from 'axios';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Userdata from '../UserData/Userdata';
 
 const Login = () => {
-    const [loginData, setLoginData] = useState([]);
     const [emailCheck, setEmailCheck] = useState("");
     const [passwordCheck, setPasswordCheck] = useState("");
     const [registeredUser, setRegisteredUser] = useState(false);
     const [notFound, setNotFound] = useState(false);
     const [showLoginForm, setShowLoginForm] = useState(true);
-    const [emailerror, setEmailerror] = useState(false)
-    const [passworderror, setPassworderror] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
     const [userMatchedData, setUserMatchedData] = useState({});
-    const [showLoader,setShowLoader] = useState(false);
-    const [showlogin,setLogin]=useState(true);
+    const [showLoader, setShowLoader] = useState(false);
+    const [showLogin, setShowLogin] = useState(true);
 
+    const fetchUsers = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/Users');
+            const users = response.data;
+            const foundUser = users.find(user => user.email === emailCheck && user.password === passwordCheck);
 
-    
-    const login = () => {
-        setShowLoader(!showLoader);
-        setLogin(!showlogin);
-        setTimeout(()=>{
-            fetchUsers();
-        },4000)
-        
-    }
-    const fetchUsers = () => {
-        axios.get(`http://localhost:3000/Users`).then((res) => {
-            setLoginData([...res.data]);
-            setShowLoginForm(!showLoginForm);
-
-            for (let data of res.data) {
-                if (data.email === emailCheck && data.password === passwordCheck) {
-                    setRegisteredUser(!registeredUser)
-                    setUserMatchedData(data);
-                    setShowLoader(false)
-                }
-                else {
-                    setNotFound(!notFound)
-                }
+            if (foundUser) {
+                setRegisteredUser(true);
+                setUserMatchedData(foundUser);
+                setNotFound(false);
+                setShowLoader(false);
+            } else {
+                setNotFound(true);
             }
-        })
-    }
-
-    const showloginform = () => {
-        setShowLoginForm(true)
-        setNotFound(!notFound)
-    }
-
-    const checkOnFocusError = (inputField) => {
-        switch (inputField) {
-
-            case "emailerror":
-                !!emailCheck ? setEmailerror(false) : setEmailerror(true);
-                break;
-
-            case "passworderror":
-                !!passworderror ? setPassworderror(false) : setPassworderror(true);
+        } catch (error) {
+            console.error('Error fetching users:', error);
         }
     };
 
+    const checkOnFocusError = (inputField) => {
+        switch (inputField) {
+            case 'email':
+                setEmailError(!emailCheck);
+                break;
+            case 'password':
+                setPasswordError(!passwordCheck);
+                break;
+            default:
+                break;
+        }
+    };
 
+    const login = () => {
+        setShowLoader(!showLoader);
+        setShowLogin(!showLogin);
+        setTimeout(fetchUsers, 4000);
+    };
+
+    //  showLoginForm = () => {
+    //     setShowLoginForm(true);
+    //     setNotFound(false);
+    // };
 
     const setEmail = (e) => {
         setEmailCheck(e.target.value);
-        if (e.target.value) {
-            setEmailerror(false);
-
-        } else {
-            setEmailerror(true);
-        }
+        setEmailError(!e.target.value);
     };
 
     const setPassword = (e) => {
         setPasswordCheck(e.target.value);
-        if (e.target.value) {
-            setPassworderror(false);
-
-        } else {
-            setPassworderror(true);
-        }
+        setPasswordError(!e.target.value);
     };
 
-    const getLoaderClass = () =>{
-        return showLoader ? 'show-parent-loader' : 'hide-parent-loader';
-    }
-
-    const getLoginClass=()=>{
-        return showlogin?'login_parent_div':'hide-parent-div'
-    }
-
-    const showtoaster = () => {
-        {
-            if (showLoginForm) {
-                return (
-                    <div className={getLoginClass()}>
-                        <div className="login_subparent_div">
-                            <div className="login_heading_div">
-                                <h1 className="login_heading">Login</h1>
+    const showToaster = () => {
+        if (showLoginForm) {
+            return (
+                <div className={showLogin ? 'login_parent_div' : 'hide-parent-div'}>
+                    <div className="login_subparent_div">
+                        <div className="login_heading_div">
+                            <h1 className="login_heading">Login</h1>
+                        </div>
+                        <div className="login_div">
+                            <form action="">
+                                <input
+                                    type="text"
+                                    value={emailCheck}
+                                    onChange={setEmail}
+                                    onFocus={() => checkOnFocusError('email')}
+                                    className="input_field"
+                                />
+                                {emailError && <span style={{ color: 'red' }}>*please enter a valid email</span>}
+                                <input
+                                    type="password"
+                                    value={passwordCheck}
+                                    onChange={setPassword}
+                                    onFocus={() => checkOnFocusError('password')}
+                                    className="input_field"
+                                />
+                                {passwordError && <span style={{ color: 'red' }}>*Invalid Password</span>}
+                            </form>
+                            <div className="btn_div">
+                                <button onClick={login}>Login</button>
                             </div>
-                            <div className="login_div">
-                                <form action="">
-                                    <input type="text" value={emailCheck} onChange={setEmail} onFocus={() => checkOnFocusError("emailerror")} className="input_field" />
-                                    {emailerror ? (
-                                        <span
-                                            style={{
-                                                color: "red"
-                                            }}
-                                        >*please enter valid email</span>
-                                    ) : ("")
-
-                                    }
-                                    <input type="password" value={passwordCheck} onChange={setPassword} onFocus={() => checkOnFocusError("passworderror")} className="input_field" />
-                                    {passworderror ? (
-                                        <span
-                                            style={{
-                                                color: "red"
-                                            }}
-                                        >*Invalid Password</span>
-                                    ) : ("")
-
-                                    }
-                                </form>
-
-                                <div className="btn_div">
-                                    <button onClick={login}>Login</button>
-                                </div>
-                                <div className="create_an_account">
-                                    <span>Don't have an account
-                                        <Link to="/AddUser">Create an Account</Link>
-                                    </span>
-                                </div>
+                            <div className="create_an_account">
+                                <span>
+                                    Don't have an account
+                                    <Link to="/AddUser">Create an Account</Link>
+                                </span>
                             </div>
                         </div>
                     </div>
-                )
-            } else if (!showLoginForm && registeredUser) {
-                return (
-                    <>
-                    
-                        <Userdata data={userMatchedData} />
-                    </>
-                )
-            }
-            else if (!showLoginForm && notFound) {
-                return (
-                    <div className="login_error">
-                        <h1 style={{ textAlign: 'center' }}>No User Found!!!</h1>
-                        <button onClick={showloginform}>Go back</button>
-                    </div>
-                )
-            }
+                </div>
+            );
+        } else if (!showLoginForm && registeredUser) {
+            return <Userdata data={userMatchedData} />;
+        } else if (!showLoginForm && notFound) {
+            return (
+                <div className="login_error">
+                    <h1 style={{ textAlign: 'center' }}>No User Found!!!</h1>
+                    <button onClick={showLoginForm}>Go back</button>
+                </div>
+            );
         }
-    }
+    };
 
     return (
         <>
-            {
-                showtoaster()
-            }
-            <div className= {getLoaderClass()}>
-            <div className="loader"></div>
+            {showToaster()}
+            <div className={showLoader ? 'show-parent-loader' : 'hide-parent-loader'}>
+                <div className="loader"></div>
             </div>
         </>
+    );
+};
 
-    )
-}
-
-export default Login
+export default Login;
